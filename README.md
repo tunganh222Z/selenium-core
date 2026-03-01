@@ -75,9 +75,9 @@ headless=true
 ```xml
 <!-- Artifact core -->
 <dependency>
-    <groupId>com.github.tunganh222Z</groupId>
+    <groupId>io.github.tunganh222Z</groupId>
     <artifactId>selenium-core</artifactId>
-    <version>v1.0.1</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
