@@ -62,11 +62,22 @@ headless=true
 ## 📥Installation
 `mvn clean install`
 
+## 📦 Installation (For Other Projects)
 ```xml
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+```xml
+<!-- Artifact core -->
 <dependency>
-    <groupId>io.github.tunganh222z</groupId>
-    <artifactId>Selenium-Core</artifactId>
-    <version>1.0.0</version>
+    <groupId>com.github.tunganh222Z</groupId>
+    <artifactId>selenium-core</artifactId>
+    <version>v1.0.1</version>
 </dependency>
 ```
 
