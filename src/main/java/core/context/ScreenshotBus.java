@@ -1,8 +1,10 @@
 package core.context;
 
 import core.strategy.ScreenshotHandler;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
-import java.util.function.Consumer;
+import static core.base.DriverFactory.getDriver;
 
 public class ScreenshotBus {
 
@@ -20,5 +22,10 @@ public class ScreenshotBus {
 
     public static void clear() {
         handler.remove();
+    }
+
+    public static byte[] takeScreenshot() {
+        return ((TakesScreenshot) getDriver())
+                .getScreenshotAs(OutputType.BYTES);
     }
 }

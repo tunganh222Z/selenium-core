@@ -1,6 +1,9 @@
 package core.base;
 
 import config.ConfigReader;
+import core.base.mobile.MobileDriverFactory;
+import core.base.ui.UiDriverFactory;
+import core.strategy.DriverStrategy;
 import listeners.DriverListeners;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -18,36 +21,11 @@ public class DriverFactory {
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     private static final Logger log = LoggerFactory.getLogger(DriverFactory.class);
 
-    public static void initDriver() {
-        WebDriver rawDriver = getBrowser();
-        driver.set(setDriverListener(rawDriver));
-        log.info("====================> INITIALIZING DRIVER - thread {} <====================", Thread.currentThread().getId());
-
-        getDriver().manage().window().maximize();
-        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+    public static void setDriver (WebDriver webDriver) {
+        driver.set(webDriver);
     }
 
-    private static WebDriver getBrowser(){
-        log.info("====================> RUNNING ENV : {} ", System.getProperty("env", "dev"));
-        String browser = ConfigReader.get("browser").toLowerCase();
-        log.info(String.format("BROWSER ====================> %s", browser));
-        switch (browser) {
-            case "firefox" :
-                return new FirefoxDriver();
-            default:
-                return new ChromeDriver();
-        }
-    }
-
-    public static WebDriver setDriverListener(WebDriver rawDriver) {
-        WebDriverListener listener = new DriverListeners();
-
-        return new EventFiringDecorator(listener)
-                        .decorate(rawDriver);
-
-    }
-
-    public static WebDriver getDriver(){
+    public static WebDriver getDriver() {
         return driver.get();
     }
 
@@ -59,8 +37,22 @@ public class DriverFactory {
         }
     }
 
-    public static byte[] takeScreenshot() {
-        return ((TakesScreenshot) getDriver())
-                .getScreenshotAs(OutputType.BYTES);
+    public static WebDriver setupDriver(String platform) {
+
+        DriverStrategy driverManager;
+
+        switch (platform.toLowerCase()) {
+            case "android":
+                driverManager = new MobileDriverFactory();
+                break;
+            default:
+                driverManager = new UiDriverFactory();
+        }
+
+        return driverManager.initDriver();
+    }
+
+    public void tearDown(){
+        DriverFactory.quitDriver();
     }
 }

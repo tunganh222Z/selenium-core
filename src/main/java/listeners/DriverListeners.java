@@ -3,6 +3,7 @@ package listeners;
 import core.base.DriverFactory;
 import core.context.ScreenshotBus;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +14,12 @@ import java.lang.reflect.Method;
 public class DriverListeners implements WebDriverListener {
 
     private static final Logger log = LoggerFactory.getLogger(DriverListeners.class);
+
+    public static WebDriver setDriverListener(WebDriver rawDriver) {
+        WebDriverListener listener = new DriverListeners();
+        return new EventFiringDecorator(listener)
+                .decorate(rawDriver);
+    }
 
     @Override
     public void beforeClick(WebElement element) {
@@ -33,7 +40,7 @@ public class DriverListeners implements WebDriverListener {
     @Override
     public void onError(Object target, Method method, Object[] args, InvocationTargetException e) {
         log.error("Driver error in method ==========> {}", method.getName());
-        byte[] screenshot = DriverFactory.takeScreenshot();
+        byte[] screenshot = ScreenshotBus.takeScreenshot();
         ScreenshotBus.publish(screenshot);
     }
 }
