@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.tunganh222Z</groupId>
   <artifactId>selenium-core</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <packaging>jar</packaging>
   <name>Archetype - Java-Selenium-Hybrid</name>
   <url>http://maven.apache.org</url>
@@ -108,5 +108,10 @@
       </properties>
     </profile>
   </profiles>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
 
 </project>

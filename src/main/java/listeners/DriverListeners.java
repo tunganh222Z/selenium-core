@@ -1,15 +1,19 @@
 package listeners;
 
-import core.base.DriverFactory;
+import core.base.CoreManager;
 import core.context.ScreenshotBus;
+import core.strategy.ReportListener;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.Duration;
 
 public class DriverListeners implements WebDriverListener {
 
@@ -23,9 +27,14 @@ public class DriverListeners implements WebDriverListener {
 
     @Override
     public void beforeClick(WebElement element) {
-        log.info("Click to element ==========> {}", element);
+        WebDriverWait wait = new WebDriverWait(CoreManager.getDriver(), Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    @Override
+    public void afterClick(WebElement element) {
+        log.info("Click to element ==========> {}", element);
+    }
 
     @Override
     public void beforeFindElement(WebDriver driver, By locator) {
@@ -34,13 +43,19 @@ public class DriverListeners implements WebDriverListener {
 
     @Override
     public void beforeGet(WebDriver driver, String url) {
+        CoreManager.getListener().onStepInfo("Open URL ==========> " + url);
         log.info("Open URL ==========> {}", url);
+    }
+
+    @Override
+    public void beforeSendKeys(WebElement element, CharSequence... keysToSend) {
+        log.info("Send key to Element ==========> {} + \"{}\"", element, keysToSend);
     }
 
     @Override
     public void onError(Object target, Method method, Object[] args, InvocationTargetException e) {
         log.error("Driver error in method ==========> {}", method.getName());
         byte[] screenshot = ScreenshotBus.takeScreenshot();
-        ScreenshotBus.publish(screenshot);
+        CoreManager.getListener().onAssertFail("Fail on Step : ", screenshot);
     }
 }

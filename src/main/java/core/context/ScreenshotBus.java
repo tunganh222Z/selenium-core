@@ -4,7 +4,7 @@ import core.strategy.ScreenshotHandler;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
-import static core.base.DriverFactory.getDriver;
+import static core.base.CoreManager.getDriver;
 
 public class ScreenshotBus {
 
