@@ -1,12 +1,13 @@
-package utils;
+package core.actions;
 
-import core.base.CoreManager;
+import core.driver.CoreManager;
 import core.context.ScreenshotBus;
-import core.strategy.ReportListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Hàm bọc lại TestNG Assert/AssertJ. Tự động chụp ảnh màn hình và đính kèm vào report nếu Assert fail.
+ */
 public class ValidateManager {
 
     public static void assertEquals(String actual, String expected) {

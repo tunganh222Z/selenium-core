@@ -1,4 +1,4 @@
-package core.base;
+package core.driver;
 
 import core.strategy.ReportListener;
 import listeners.DriverListeners;
@@ -7,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Chứa ThreadLocal<WebDriver> để giữ driver độc lập cho từng luồng chạy song song.
+ */
 public class CoreManager {
 
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
