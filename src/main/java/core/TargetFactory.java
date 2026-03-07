@@ -20,34 +20,20 @@ import utils.EnumUtils;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Chuyên xử lý logic nếu kết nối tới Selenium Grid, Docker, hoặc Cloud testing (BrowserStack, SauceLabs).
- * Mục tiêu: Xây dựng class TargetFactory làm nhiệm vụ sinh ra instance của WebDriver dựa trên môi trường thực thi (Local hoặc Remote). Nó sẽ đóng vai trò trung gian, lấy cấu hình từ ConfigReader và lấy options từ BrowserOptionsManager để lắp ráp thành chiếc xe hoàn chỉnh.
- *
- * Yêu cầu nghiệp vụ (Business Requirements):
- *
- * Phân nhánh rõ ràng (Execution Targets):
- *
- * Chạy Local: Khởi chạy trình duyệt trực tiếp trên máy vật lý. Tận dụng sức mạnh phần cứng cục bộ, ví dụ như dàn PC i5 thế hệ 12 đi kèm card RTX 3060 Ti, để render UI giao diện web cực kỳ mượt mà và trực quan khi debug script.
- *
- * Chạy Remote: Khởi chạy thông qua Selenium Grid hoặc các dịch vụ Cloud (như BrowserStack, LambdaTest). Yêu cầu phải trả về một đối tượng RemoteWebDriver.
- *
- * Tiêu thụ ConfigReader: Tự động lấy các giá trị target (local/remote), browser (chrome/edge), và gridUrl từ file cấu hình.
- *
- * Bắt lỗi URL: Khi khởi tạo RemoteWebDriver, URL của Selenium Grid truyền vào có thể bị sai định dạng (ví dụ thiếu http://). Bắt buộc phải handle lỗi MalformedURLException và ném ra một thông báo rõ ràng để người dùng biết họ cấu hình sai URL ở đâu.
- */
 public class TargetFactory {
     public static WebDriver createInstance() {
         PlatFormType platFormType = EnumUtils.getFrom(PlatFormType.class, ConfigReader.get("platform"),PlatFormType.WEB);
         TargetType targetType = EnumUtils.getFrom(TargetType.class, ConfigReader.get("targetType"),TargetType.LOCAL);
+
         try {
-            URL url = new URL(ConfigReader.get("remoteURL"));
             switch (platFormType) {
                 case ANDROID -> {
+                    URL url = new URL(ConfigReader.get("remoteURL"));
                     return createAndroidDriver(url, MobileOptionsManager.getAndroidOptions());
                 }
 
                 case IOS -> {
+                    URL url = new URL(ConfigReader.get("remoteURL"));
                     return createIOSDriver(url, MobileOptionsManager.getIOSOptions());
                 }
             }
