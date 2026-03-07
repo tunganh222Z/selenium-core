@@ -29,6 +29,7 @@ public class CallApi {
     public Response requestPost(String endPoint, JSONObject body) {
                 return
                         request
+                                .body(body.toString())
                         .when()
                         .post();
     }
