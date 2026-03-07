@@ -1,7 +1,7 @@
 package utils;
 
 import core.CoreManager;
-import uiEngine.interfaces.ScreenshotHandler;
+import core.ui.interfaces.ScreenshotHandler;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 

@@ -1,6 +1,6 @@
 package config;
 
-import uiEngine.enums.FileType;
+import core.enums.FileType;
 import utils.Supporter;
 
 import java.io.IOException;

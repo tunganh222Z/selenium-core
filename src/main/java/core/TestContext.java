@@ -2,7 +2,7 @@ package core;
 
 import listeners.DriverListeners;
 import org.openqa.selenium.WebDriver;
-import uiEngine.interfaces.ReportListener;
+import listeners.ReportListener;
 
 import java.util.ArrayList;
 import java.util.List;

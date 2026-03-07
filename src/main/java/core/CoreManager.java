@@ -1,12 +1,5 @@
 package core;
 
-import uiEngine.interfaces.ReportListener;
-import listeners.DriverListeners;
-import org.openqa.selenium.WebDriver;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class CoreManager {
     private static final ThreadLocal<TestContext> context = new ThreadLocal<>();
 
