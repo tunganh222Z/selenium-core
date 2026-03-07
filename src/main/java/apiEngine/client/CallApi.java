@@ -12,24 +12,28 @@ public class CallApi {
 
     public CallApi(BuilderInterface requestBuilder) {
         this.requestBuilder = requestBuilder;
-        request = requestBuilder.buildRequest().filter(new RestLoggerFilter());
+
     }
 
     public BuilderInterface getBuilderRequest() {
         return this.requestBuilder;
     }
 
+    private RequestSpecification getFreshRequest() {
+        return requestBuilder.buildRequest().filter(new RestLoggerFilter());
+    }
+
     public Response requestGet(String endPoint) {
         return
-                        request
+                getFreshRequest()
                         .when()
                         .get(endPoint);
     }
 
     public Response requestPost(String endPoint, JSONObject body) {
-                return
-                        request
-                                .body(body.toString())
+        return
+                getFreshRequest()
+                        .body(body.toString())
                         .when()
                         .post();
     }
