@@ -13,6 +13,6 @@ public class DriverFactory {
     public static void initDriver() {
         TargetType targetType = TargetType.valueOf(ConfigReader.get("target").toUpperCase());
         WebDriver driver = TargetFactory.createInstance(targetType);
-        CoreManager.setDriver(driver);
+        CoreManager.getContext().setDriver(driver);
     }
 }

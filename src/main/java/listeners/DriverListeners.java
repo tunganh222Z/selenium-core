@@ -1,7 +1,7 @@
 package listeners;
 
 import core.CoreManager;
-import uiEngine.context.ScreenshotBus;
+import utils.ScreenshotBus;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
@@ -26,7 +26,7 @@ public class DriverListeners implements WebDriverListener {
 
     @Override
     public void beforeClick(WebElement element) {
-        WebDriverWait wait = new WebDriverWait(CoreManager.getDriver(), Duration.ofSeconds(30));
+        WebDriverWait wait = new WebDriverWait(CoreManager.getContext().getDriver(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
@@ -42,7 +42,7 @@ public class DriverListeners implements WebDriverListener {
 
     @Override
     public void beforeGet(WebDriver driver, String url) {
-        CoreManager.getListener().onStepInfo("Open URL ==========> " + url);
+        CoreManager.getContext().getReportListener().onStepInfo("Open URL ==========> " + url);
         log.info("Open URL ==========> {}", url);
     }
 
@@ -55,6 +55,6 @@ public class DriverListeners implements WebDriverListener {
     public void onError(Object target, Method method, Object[] args, InvocationTargetException e) {
         log.error("Driver error in method ==========> {}", method.getName());
         byte[] screenshot = ScreenshotBus.takeScreenshot();
-        CoreManager.getListener().onAssertFail("Fail on Step : ", screenshot);
+        CoreManager.getContext().getReportListener().onAssertFail("Fail on Step : ", screenshot);
     }
 }

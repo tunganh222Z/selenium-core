@@ -1,7 +1,7 @@
-package uiEngine.actions;
+package validate;
 
 import core.CoreManager;
-import uiEngine.context.ScreenshotBus;
+import utils.ScreenshotBus;
 
 import java.util.List;
 
@@ -18,32 +18,32 @@ public class ValidateManager {
 
     public static void softAssertEquals (String actual, String expected) {
         String step = String.format("Validate => %s <= || => %s <=", actual, expected);
-        CoreManager.getListener().onStepInfo(step);
+        CoreManager.getContext().getReportListener().onStepInfo(step);
         if (!checkEquals(actual,expected)) {
-            if (CoreManager.getListener() != null) {
-                CoreManager.getSoftErrors().add(new AssertionError("❌ FAIL: " + step ));
+            if (CoreManager.getContext().getReportListener() != null) {
+                CoreManager.getContext().getSoftErrorsList().add(new AssertionError("❌ FAIL: " + step ));
             }
         }
     }
 
     private static boolean checkEquals(String actual, String expected) {
         String step = String.format("Validate => %s <= || => %s <=", actual, expected);
-        CoreManager.getListener().onStepInfo(step);
+        CoreManager.getContext().getReportListener().onStepInfo(step);
         if (actual.equals(expected)) {
-            if (CoreManager.getListener() != null ){
-                CoreManager.getListener().onAssertPass("✅ PASS: " + step);
+            if (CoreManager.getContext().getReportListener() != null ){
+                CoreManager.getContext().getReportListener().onAssertPass("✅ PASS: " + step);
             }
             return true;
         } else {
-            if (CoreManager.getListener() != null) {
-                CoreManager.getListener().onAssertFail("❌ FAIL: " + step, ScreenshotBus.takeScreenshot());
+            if (CoreManager.getContext().getReportListener() != null) {
+                CoreManager.getContext().getReportListener().onAssertFail("❌ FAIL: " + step, ScreenshotBus.takeScreenshot());
             }
             return false;
         }
     }
 
     public static void assertAll() {
-        List<Throwable> errors = CoreManager.getSoftErrors();
+        List<Throwable> errors = CoreManager.getContext().getSoftErrorsList();
         boolean hasErrors = !errors.isEmpty();
 
         if (hasErrors) {

@@ -16,7 +16,7 @@ public class WaitUtils implements WaitHub {
 
     @Override
     public WebElement applyWait(By locator, WaitStrategy waitStrategy) {
-         WebDriverWait wait = new WebDriverWait(CoreManager.getDriver(), Duration.ofSeconds(ConfigReader.getInt("timeout")));
+         WebDriverWait wait = new WebDriverWait(CoreManager.getContext().getDriver(), Duration.ofSeconds(ConfigReader.getInt("timeout")));
 
          switch (waitStrategy) {
              case CLICKABLE -> {
@@ -32,7 +32,7 @@ public class WaitUtils implements WaitHub {
              }
 
              default -> {
-                return CoreManager.getDriver().findElement(locator);
+                return CoreManager.getContext().getDriver().findElement(locator);
              }
          }
     }

@@ -63,7 +63,7 @@ public class ConfigReader {
         String value = get(key);
 
         if (value != null) {
-            return Boolean.parseBoolean(key);
+            return Boolean.parseBoolean(value);
         }
         return false;
     }

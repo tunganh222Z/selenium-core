@@ -28,7 +28,7 @@ public class RestLoggerFilter implements Filter {
 
         Response res = filterContext.next(filterableRequestSpecification, filterableResponseSpecification);
 
-        CoreManager.getListener().onApiStep(
+        CoreManager.getContext().getReportListener().onApiStep(
                 stepName,
                 reqBody,
                 res.getBody().asPrettyString()

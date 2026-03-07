@@ -1,10 +1,9 @@
-package uiEngine.context;
+package utils;
 
+import core.CoreManager;
 import uiEngine.interfaces.ScreenshotHandler;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-
-import static core.CoreManager.getDriver;
 
 public class ScreenshotBus {
 
@@ -25,7 +24,7 @@ public class ScreenshotBus {
     }
 
     public static byte[] takeScreenshot() {
-        return ((TakesScreenshot) getDriver())
+        return ((TakesScreenshot) CoreManager.getContext().getDriver())
                 .getScreenshotAs(OutputType.BYTES);
     }
 }
