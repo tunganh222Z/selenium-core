@@ -1,9 +1,9 @@
 package utils;
 
-import core.config.ConfigReader;
-import core.driver.CoreManager;
-import core.enums.WaitStrategy;
-import core.strategy.WaitHub;
+import config.ConfigReader;
+import core.CoreManager;
+import uiEngine.enums.WaitStrategy;
+import uiEngine.interfaces.WaitHub;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;

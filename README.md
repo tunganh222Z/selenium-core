@@ -1,11 +1,11 @@
 # 🚀 Automation Core Library
 
-A reusable Selenium automation core framework designed for scalable, parallel execution and enterprise-level test automation projects.
+A reusable Selenium automation uiEngine framework designed for scalable, parallel execution and enterprise-level test automation projects.
 
 ---
 
 ## 📦 Overview
-This project provides a clean, decoupled Selenium core library including:
+This project provides a clean, decoupled Selenium uiEngine library including:
 
 - Thread-safe WebDriver management
 - Event-driven screenshot capturing
@@ -15,7 +15,7 @@ This project provides a clean, decoupled Selenium core library including:
 - Logging with thread & scenario support
 - Utility helper classes
 
-The core is framework-agnostic (no dependency on Cucumber, TestNG, or JUnit).
+The uiEngine is framework-agnostic (no dependency on Cucumber, TestNG, or JUnit).
 
 ## 🏗 Architecture
     ├── base # Base driver & page abstractions
@@ -23,7 +23,7 @@ The core is framework-agnostic (no dependency on Cucumber, TestNG, or JUnit).
     ├── context # Thread-local execution context
     ├── strategy # Interface classes
     ├── listeners # WebDriver event listeners
-    ├── config # Configuration reader
+    ├── config_1 # Configuration reader
     ├── utils # Common utility classes
 
 ---
@@ -73,10 +73,10 @@ headless=true
 ```
 
 ```xml
-<!-- Artifact core -->
+<!-- Artifact uiEngine -->
 <dependency>
     <groupId>io.github.tunganh222Z</groupId>
-    <artifactId>selenium-core</artifactId>
+    <artifactId>selenium-uiEngine</artifactId>
     <version>1.0.3</version>
 </dependency>
 ```

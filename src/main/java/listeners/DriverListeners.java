@@ -1,7 +1,7 @@
 package listeners;
 
-import core.driver.CoreManager;
-import core.context.ScreenshotBus;
+import core.CoreManager;
+import uiEngine.context.ScreenshotBus;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.events.EventFiringDecorator;
 import org.openqa.selenium.support.events.WebDriverListener;
