@@ -31,8 +31,8 @@ public class CoreRequestBuilder implements BuilderInterface {
     public CoreRequestBuilder setAccessToken(String tokenType) {
         if (tokenType != null || tokenType.isBlank()) {
             tokenType = ConfigReader.get("tokenDefault");
+            accessToken = new AccessToken(tokenType);
         }
-        accessToken = new AccessToken(tokenType);
         return this;
     }
 
