@@ -16,7 +16,7 @@ public class CoreRequestBuilder implements BuilderInterface {
                 .header("Content-Type", "application/json")
                 .header("Accept", "application/json");
 
-        if (this.accessToken != null) {
+        if (this.accessToken != null || this.accessToken.getToken().isBlank()) {
             spec.header("Authorization", "Bearer " + this.accessToken.getToken());
         }
         return spec;
