@@ -13,8 +13,4 @@ public class Supporter {
 
         return inputStream;
     }
-
-    public static Enum getEnumValue(String value) {
-
-    }
 }
