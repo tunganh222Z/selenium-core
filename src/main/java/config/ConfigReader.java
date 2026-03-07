@@ -29,7 +29,7 @@ public class ConfigReader {
     private static Properties sysProps = System.getProperties();
 
     static {
-        ClassLoader classLoader = ConfigReader.class.getClassLoader();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         try {
             prop.load(Supporter.readResourceStreamFile(classLoader, FileType.DEFAULT.getFileName()));
             String env = System.getProperty("env", "dev").toUpperCase();

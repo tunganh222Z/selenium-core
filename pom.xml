@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.tunganh222Z</groupId>
   <artifactId>selenium-core</artifactId>
-  <version>1.1.2b</version>
+  <version>1.1.2c</version>
   <packaging>jar</packaging>
   <name>Archetype - Java-Selenium-Hybrid</name>
   <url>http://maven.apache.org</url>

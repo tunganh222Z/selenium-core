@@ -18,13 +18,21 @@ public class RestLoggerFilter implements Filter {
         logger.info("========== SEND REQUEST ==========");
         logger.info("==========> Method : " + filterableRequestSpecification.getMethod());
         logger.info("==========> URI : " + filterableRequestSpecification.getURI());
-
-        if (filterableRequestSpecification.getBody() != null) {
-            logger.info("Request Body: \n" + filterableRequestSpecification.getBody().toString());
+        Object req = filterableRequestSpecification.getBody();
+        String reqBody = "";
+        String stepName = "Call API: " + filterableRequestSpecification.getURI() + " | METHOD: " + filterableRequestSpecification.getMethod();
+        if (req != null) {
+            logger.info("Request Body: \n" + req.toString());
+            reqBody = req.toString();
         }
-        CoreManager.getListener().onStepInfo("Call API : " + filterableRequestSpecification.getURI() + " METHOD : " + filterableRequestSpecification.getMethod());
 
         Response res = filterContext.next(filterableRequestSpecification, filterableResponseSpecification);
+
+        CoreManager.getListener().onApiStep(
+                stepName,
+                reqBody,
+                res.getBody().asPrettyString()
+        );
 
         logger.info("==========> RESPONSE : " + res.getBody().prettyPrint());
 

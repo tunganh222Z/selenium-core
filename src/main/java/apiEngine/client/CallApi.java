@@ -1,5 +1,6 @@
 package apiEngine.client;
 
+import apiEngine.response.ApiResponse;
 import listeners.RestLoggerFilter;
 import apiEngine.interfaces.BuilderInterface;
 import io.restassured.response.Response;
@@ -23,18 +24,18 @@ public class CallApi {
         return requestBuilder.buildRequest().filter(new RestLoggerFilter());
     }
 
-    public Response requestGet(String endPoint) {
-        return
-                getFreshRequest()
+    public ApiResponse requestGet(String endPoint) {
+        Response res = getFreshRequest()
                         .when()
                         .get(endPoint);
+        return new ApiResponse(res);
     }
 
-    public Response requestPost(String endPoint, JSONObject body) {
-        return
-                getFreshRequest()
+    public ApiResponse requestPost(String endPoint, JSONObject body) {
+        Response res = getFreshRequest()
                         .body(body.toString())
                         .when()
                         .post();
+        return new ApiResponse(res);
     }
 }
