@@ -32,6 +32,17 @@ public class ConfigReader {
         return prop.getProperty(key);
     }
 
+    public String get(String key, String defaultValue) {
+        String value = sysProps.getProperty(key);
+
+        if (value != null) {
+            return value;
+        } else if (prop.getProperty(key) == null) {
+            return defaultValue;
+        }
+        return prop.getProperty(key);
+    }
+
     public int getInt(String key) {
         String value = get(key);
 
