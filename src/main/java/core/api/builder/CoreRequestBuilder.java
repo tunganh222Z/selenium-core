@@ -1,5 +1,6 @@
 package core.api.builder;
 
+import core.CoreManager;
 import core.api.interfaces.BuilderInterface;
 import config.ConfigReader;
 import io.restassured.RestAssured;
@@ -30,7 +31,7 @@ public class CoreRequestBuilder implements BuilderInterface {
     @Override
     public CoreRequestBuilder setAccessToken(String tokenType) {
         if (tokenType != null || tokenType.isBlank()) {
-            tokenType = ConfigReader.get("tokenDefault");
+            tokenType = CoreManager.getContext().getConfigReader().get("tokenDefault");
             accessToken = new AccessToken(tokenType);
         }
         return this;

@@ -1,5 +1,7 @@
 package utils;
 
+import core.enums.TargetType;
+
 import java.lang.reflect.Field;
 
 public final class EnumUtils {
@@ -19,7 +21,7 @@ public final class EnumUtils {
             for (Field field : fields) {
                 if (field.isEnumConstant()) {
                     if (field.getName().equalsIgnoreCase(value)) {
-                        return Enum.valueOf(enumClass, value);
+                        return Enum.valueOf(enumClass, value.toUpperCase());
                     }
                 }
             }

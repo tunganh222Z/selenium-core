@@ -22,18 +22,18 @@ import java.net.URL;
 
 public class TargetFactory {
     public static WebDriver createInstance() {
-        PlatFormType platFormType = EnumUtils.getFrom(PlatFormType.class, ConfigReader.get("platform"),PlatFormType.WEB);
-        TargetType targetType = EnumUtils.getFrom(TargetType.class, ConfigReader.get("targetType"),TargetType.LOCAL);
+        PlatFormType platFormType = EnumUtils.getFrom(PlatFormType.class, CoreManager.getContext().getConfigReader().get("platform"),PlatFormType.WEB);
+        TargetType targetType = EnumUtils.getFrom(TargetType.class, CoreManager.getContext().getConfigReader().get("targetType"),TargetType.LOCAL);
 
         try {
             switch (platFormType) {
                 case ANDROID -> {
-                    URL url = new URL(ConfigReader.get("remoteURL"));
+                    URL url = new URL(CoreManager.getContext().getConfigReader().get("remoteURL"));
                     return createAndroidDriver(url, MobileOptionsManager.getAndroidOptions());
                 }
 
                 case IOS -> {
-                    URL url = new URL(ConfigReader.get("remoteURL"));
+                    URL url = new URL(CoreManager.getContext().getConfigReader().get("remoteURL"));
                     return createIOSDriver(url, MobileOptionsManager.getIOSOptions());
                 }
             }
@@ -68,9 +68,9 @@ public class TargetFactory {
     }
 
     private static WebDriver createLocalDriver() {
-        String browser = ConfigReader.get("browser").toUpperCase();
+        String browser = CoreManager.getContext().getConfigReader().get("browser");
         BrowserTypes browserType = BrowserTypes.valueOf(browser);
-        boolean isHeadless = ConfigReader.getBoolean("headless");
+        boolean isHeadless = CoreManager.getContext().getConfigReader().getBoolean("headless");
         WebDriver driver;
 
         switch (browserType) {
@@ -91,23 +91,23 @@ public class TargetFactory {
     }
 
     private static WebDriver createRemoteDriver(){
-        String browser = ConfigReader.get("browser").toUpperCase();
+        String browser = CoreManager.getContext().getConfigReader().get("browser").toUpperCase();
         BrowserTypes browserType = BrowserTypes.valueOf(browser);
-        boolean isHeadless = ConfigReader.getBoolean("headless");
+        boolean isHeadless = CoreManager.getContext().getConfigReader().getBoolean("headless");
         WebDriver driver;
-        String gridUrl = ConfigReader.get("gridUrl");
+        String gridUrl = CoreManager.getContext().getConfigReader().get("gridUrl");
 
         try {
             URL url = new URL(gridUrl);
             switch (browserType) {
                 case CHROME :
-                    driver = new RemoteWebDriver(BrowserOptionsManager.getChromeOptions(isHeadless));
+                    driver = new RemoteWebDriver(url,BrowserOptionsManager.getChromeOptions(isHeadless));
                     break;
                 case FIREFOX:
-                    driver = new RemoteWebDriver(BrowserOptionsManager.getFirefoxOptions(isHeadless));
+                    driver = new RemoteWebDriver(url,BrowserOptionsManager.getFirefoxOptions(isHeadless));
                     break;
                 case EDGE:
-                    driver = new RemoteWebDriver(BrowserOptionsManager.getEdgeOptions(isHeadless));
+                    driver = new RemoteWebDriver(url,BrowserOptionsManager.getEdgeOptions(isHeadless));
                     break;
                 default:
                     throw new IllegalArgumentException("Browser type is not supported : " + browser);
